@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=240, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{% block title %}WebBooks{% endblock %}</title>
+    <link rel="stylesheet" href="{{ '../' if in_book else '' }}style.css">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <span class="header-title">{% block header %}WebBooks{% endblock %}</span>
+    </header>
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <nav class="nav-bar">
+        {% block nav %}
+        <span class="nav-item"></span>
+        <span class="nav-item"></span>
+        <span class="nav-item"></span>
+        {% endblock %}
+    </nav>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

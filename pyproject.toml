@@ -1,0 +1,15 @@
+[project]
+name = "webbooks"
+version = "0.1.0"
+description = "Static site generator for reading EPUB/FB2 books on Nokia feature phones via Cloud Phone"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "ebooklib>=0.18",
+    "beautifulsoup4>=4.12",
+    "lxml>=5.0",
+    "jinja2>=3.1",
+]
+
+[project.scripts]
+webbooks-build = "build:main"

@@ -1,0 +1,315 @@
+/* WebBooks - Styles for Cloud Phone (QVGA 240x320 / QQVGA 128x160) */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 240px;
+    height: 320px;
+    overflow: hidden;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.3;
+    background: #fff;
+    color: #000;
+}
+
+/* Header */
+.header {
+    height: 24px;
+    padding: 4px 8px;
+    background: #333;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.header-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-page {
+    font-weight: normal;
+    font-size: 10px;
+    opacity: 0.8;
+}
+
+/* Main content area */
+.content {
+    height: 256px;
+    padding: 8px;
+    overflow: hidden;
+}
+
+/* Bottom navigation bar */
+.nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #eee;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+}
+
+.nav-item {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 4px;
+}
+
+.nav-link {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.nav-link:focus,
+.nav-link:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+.nav-disabled {
+    color: #999;
+}
+
+.nav-page {
+    font-size: 10px;
+    color: #666;
+}
+
+.nav-hint {
+    font-size: 10px;
+    color: #666;
+}
+
+/* Book list on index page */
+.book-list {
+    list-style: none;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.book-item {
+    border-bottom: 1px solid #ddd;
+}
+
+.book-link {
+    display: block;
+    padding: 8px 4px;
+    text-decoration: none;
+    color: #000;
+}
+
+.book-link:focus,
+.book-link:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+.book-title {
+    display: block;
+    font-weight: bold;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-author {
+    display: block;
+    font-size: 11px;
+    color: #666;
+    margin-top: 2px;
+}
+
+.book-link:focus .book-author,
+.book-link:hover .book-author {
+    color: #cce5ff;
+}
+
+.empty-message {
+    padding: 16px;
+    text-align: center;
+    color: #666;
+    font-size: 12px;
+}
+
+/* Reader text */
+.reader-text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.3;
+}
+
+/* Table of contents */
+.toc-list {
+    list-style: none;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.toc-item {
+    border-bottom: 1px solid #eee;
+}
+
+.toc-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 4px;
+    text-decoration: none;
+    color: #000;
+}
+
+.toc-link:focus,
+.toc-link:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+.toc-title {
+    flex: 1;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 8px;
+}
+
+.toc-page {
+    font-size: 10px;
+    color: #666;
+    min-width: 24px;
+    text-align: right;
+}
+
+.toc-link:focus .toc-page,
+.toc-link:hover .toc-page {
+    color: #cce5ff;
+}
+
+/* Indentation for nested TOC entries */
+.toc-level-1 .toc-link { padding-left: 16px; }
+.toc-level-2 .toc-link { padding-left: 28px; }
+
+/* Hidden navigation (for accesskey) */
+.hidden-nav {
+    position: absolute;
+    left: -9999px;
+}
+
+.hidden-link {
+    position: absolute;
+    left: -9999px;
+}
+
+/* ===================== */
+/* QQVGA (128x160) styles */
+/* ===================== */
+@media (max-width: 160px), (max-height: 200px) {
+    html, body {
+        width: 128px;
+        height: 160px;
+        font-size: 10px;
+    }
+
+    .header {
+        height: 16px;
+        padding: 2px 4px;
+        font-size: 9px;
+    }
+
+    .header-page {
+        font-size: 8px;
+    }
+
+    .content {
+        height: 114px;
+        padding: 4px;
+    }
+
+    .nav-bar {
+        height: 30px;
+        padding: 0 4px;
+    }
+
+    .nav-item {
+        font-size: 9px;
+        padding: 4px 2px;
+    }
+
+    .nav-page,
+    .nav-hint {
+        font-size: 8px;
+    }
+
+    .book-link {
+        padding: 4px 2px;
+    }
+
+    .book-title {
+        font-size: 10px;
+    }
+
+    .book-author {
+        font-size: 9px;
+    }
+
+    .reader-text {
+        font-size: 10px;
+        line-height: 1.2;
+    }
+
+    .toc-link {
+        padding: 4px 2px;
+    }
+
+    .toc-title {
+        font-size: 9px;
+    }
+
+    .toc-page {
+        font-size: 8px;
+    }
+
+    .toc-level-1 .toc-link { padding-left: 8px; }
+    .toc-level-2 .toc-link { padding-left: 14px; }
+}
+
+/* Font size variants (via class on body) */
+.font-small .reader-text {
+    font-size: 12px;
+}
+
+.font-large .reader-text {
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+@media (max-width: 160px) {
+    .font-small .reader-text {
+        font-size: 9px;
+    }
+
+    .font-large .reader-text {
+        font-size: 12px;
+    }
+}

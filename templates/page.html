@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% set in_book = true %}
+
+{% block title %}{{ book.title }} - p.{{ page.number }}{% endblock %}
+{% block header %}{{ page.chapter_title[:15] }}{% if page.chapter_title|length > 15 %}..{% endif %} <span class="header-page">{{ page.number }}/{{ total_pages }}</span>{% endblock %}
+
+{% block head %}
+<script src="../app.js" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="reader-text" id="reader">{{ page.content }}</div>
+{% endblock %}
+
+{% block nav %}
+{# Previous page #}
+{% if prev_page %}
+<a href="{{ prev_page }}.html" class="nav-item nav-link" accesskey="{{ nav_keys.prev_page }}">&lt;</a>
+{% else %}
+<span class="nav-item nav-disabled">&lt;</span>
+{% endif %}
+
+{# Page counter #}
+<span class="nav-item nav-page">{{ page.number }}/{{ total_pages }}</span>
+
+{# Next page #}
+{% if next_page %}
+<a href="{{ next_page }}.html" class="nav-item nav-link" accesskey="{{ nav_keys.next_page }}">&gt;</a>
+{% else %}
+<span class="nav-item nav-disabled">&gt;</span>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{# Hidden navigation links for accesskey #}
+<div class="hidden-nav">
+    <a href="toc.html" accesskey="{{ nav_keys.toc }}" class="hidden-link">TOC</a>
+    <a href="../index.html" accesskey="{{ nav_keys.home }}" class="hidden-link">Home</a>
+</div>
+
+<script>
+    // Save reading position
+    if (typeof savePosition === 'function') {
+        savePosition('{{ book.slug }}', {{ page.number }});
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% set in_book = true %}
+
+{% block title %}{{ book.title }} - TOC{% endblock %}
+{% block header %}Contents{% endblock %}
+
+{% block content %}
+<ul class="toc-list">
+    {% for entry in toc %}
+    <li class="toc-item toc-level-{{ entry.level }}">
+        <a href="{{ entry.first_page }}.html" class="toc-link" {% if loop.first %}autofocus{% endif %}>
+            <span class="toc-title">{{ entry.title }}</span>
+            <span class="toc-page">{{ entry.first_page }}</span>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+{% block nav %}
+<a href="../index.html" class="nav-item nav-link" accesskey="{{ nav_keys.home }}">Home</a>
+<span class="nav-item"></span>
+<a href="1.html" class="nav-item nav-link">Read</a>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}WebBooks - Library{% endblock %}
+{% block header %}Library{% endblock %}
+
+{% block content %}
+<ul class="book-list">
+    {% for book in books %}
+    <li class="book-item">
+        <a href="{{ book.slug }}/1.html" class="book-link" {% if loop.first %}autofocus{% endif %}>
+            <span class="book-title">{{ book.title }}</span>
+            <span class="book-author">{{ book.author }}</span>
+        </a>
+    </li>
+    {% else %}
+    <li class="empty-message">
+        No books found.<br>
+        Add EPUB or FB2 files to books/ folder.
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+{% block nav %}
+<span class="nav-item nav-hint">{{ books|length }} books</span>
+<span class="nav-item"></span>
+<span class="nav-item"></span>
+{% endblock %}
