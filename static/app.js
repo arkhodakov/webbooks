@@ -23,10 +23,10 @@
             } else if (key === 'ArrowRight' || key === '6') {
                 // Next page
                 link = document.querySelector('a[accesskey="6"]');
-            } else if (key === 'ArrowUp' || key === '2') {
-                // Table of contents
-                link = document.querySelector('a[accesskey="2"]');
-            } else if (key === 'ArrowDown' || key === '8') {
+            } else if (key === '5' || key === 'Enter') {
+                // Table of contents (center key)
+                link = document.querySelector('a[accesskey="5"]');
+            } else if (key === 'ArrowUp' || key === 'ArrowDown' || key === '8') {
                 // Home / book list
                 link = document.querySelector('a[accesskey="8"]');
             }

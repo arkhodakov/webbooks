@@ -13,6 +13,7 @@ class Page:
     content: str
     chapter_index: int
     chapter_title: str
+    is_chapter_start: bool = False  # True if this is the first page of a chapter
 
 
 class Paginator:
@@ -39,6 +40,11 @@ class Paginator:
         Returns:
             List of Page objects
         """
+        # Remove chapter title from the beginning of text (it will be shown separately)
+        text = text.strip()
+        if text.lower().startswith(chapter_title.lower()):
+            text = text[len(chapter_title):].strip()
+
         # Split into paragraphs
         paragraphs = text.split('\n\n')
 
@@ -60,7 +66,7 @@ class Paginator:
                     all_lines.append('')
                     continue
 
-                # Wrap long lines
+                # Wrap long lines to fit screen width
                 wrapped = textwrap.wrap(
                     line,
                     width=self.chars_per_line,
@@ -77,36 +83,57 @@ class Paginator:
             all_lines.append('')
 
         # Remove trailing empty lines
-        while all_lines and not all_lines[-1]:
+        while all_lines and all_lines[-1] == '':
             all_lines.pop()
 
         # Group lines into pages
         pages: list[Page] = []
         current_lines: list[str] = []
         page_number = 1
+        is_first_page = True
+
+        # First page has fewer lines because of chapter heading
+        lines_for_first_page = max(1, self.lines_per_page - 3)
 
         for line in all_lines:
             current_lines.append(line)
 
-            if len(current_lines) >= self.lines_per_page:
-                # Create page
+            max_lines = lines_for_first_page if is_first_page else self.lines_per_page
+            if len(current_lines) >= max_lines:
+                # Strip leading/trailing empty lines from content
+                while current_lines and current_lines[0] == '':
+                    current_lines.pop(0)
+                while current_lines and current_lines[-1] == '':
+                    current_lines.pop()
+
+                if current_lines:
+                    pages.append(Page(
+                        number=page_number,
+                        content='\n'.join(current_lines),
+                        chapter_index=chapter_index,
+                        chapter_title=chapter_title,
+                        is_chapter_start=is_first_page,
+                    ))
+                    page_number += 1
+                    is_first_page = False
+
+                current_lines = []
+
+        # Don't forget the last page
+        if current_lines:
+            while current_lines and current_lines[0] == '':
+                current_lines.pop(0)
+            while current_lines and current_lines[-1] == '':
+                current_lines.pop()
+
+            if current_lines:
                 pages.append(Page(
                     number=page_number,
                     content='\n'.join(current_lines),
                     chapter_index=chapter_index,
                     chapter_title=chapter_title,
+                    is_chapter_start=is_first_page,
                 ))
-                page_number += 1
-                current_lines = []
-
-        # Don't forget the last page
-        if current_lines:
-            pages.append(Page(
-                number=page_number,
-                content='\n'.join(current_lines),
-                chapter_index=chapter_index,
-                chapter_title=chapter_title,
-            ))
 
         return pages
 

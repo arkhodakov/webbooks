@@ -9,12 +9,19 @@
 {% endblock %}
 
 {% block content %}
+{% if page.is_chapter_start %}
+<div class="chapter-heading">
+    <div class="chapter-decoration">***</div>
+    <div class="chapter-name">{{ page.chapter_title }}</div>
+    <div class="chapter-decoration">***</div>
+</div>
+{% endif %}
 <div class="reader-text" id="reader">{{ page.content }}</div>
 {% endblock %}
 
 {% block nav %}
 {# Previous page #}
-{% if prev_page %}
+{% if prev_page is not none %}
 <a href="{{ prev_page }}.html" class="nav-item nav-link" accesskey="{{ nav_keys.prev_page }}">&lt;</a>
 {% else %}
 <span class="nav-item nav-disabled">&lt;</span>

@@ -111,6 +111,9 @@ def main():
         print("No books were successfully parsed!")
         sys.exit(1)
 
+    # Sort books alphabetically by title
+    books.sort(key=lambda b: b.title.lower())
+
     print()
 
     # Generate site

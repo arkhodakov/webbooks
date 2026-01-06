@@ -31,6 +31,8 @@ class Book:
     file_path: Path
     chapters: list[Chapter] = field(default_factory=list)
     toc: list[TocEntry] = field(default_factory=list)
+    cover_data: bytes | None = None  # Raw image data
+    cover_ext: str = ""  # Extension: "jpg", "png", etc.
 
     @property
     def format(self) -> str:
@@ -65,6 +67,10 @@ class Book:
     @property
     def total_chapters(self) -> int:
         return len(self.chapters)
+
+    @property
+    def has_cover(self) -> bool:
+        return self.cover_data is not None and len(self.cover_data) > 0
 
 
 class BookParser(Protocol):

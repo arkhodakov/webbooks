@@ -28,22 +28,22 @@ SCREENS = {
 # Font size presets
 FONT_SIZES = {
     "small": {
-        "size_px": 12,
-        "line_height": 1.3,
-        "chars_per_line": 38,  # For QVGA
-        "lines_per_page": 18,
-    },
-    "medium": {
         "size_px": 14,
         "line_height": 1.3,
         "chars_per_line": 32,
-        "lines_per_page": 15,
+        "lines_per_page": 12,
     },
-    "large": {
-        "size_px": 18,
+    "medium": {
+        "size_px": 16,
         "line_height": 1.4,
         "chars_per_line": 25,
-        "lines_per_page": 11,
+        "lines_per_page": 9,
+    },
+    "large": {
+        "size_px": 20,
+        "line_height": 1.5,
+        "chars_per_line": 22,
+        "lines_per_page": 7,
     },
 }
 
@@ -54,7 +54,7 @@ DEFAULT_FONT_SIZE = "medium"
 NAV_KEYS = {
     "prev_page": "4",      # D-pad left
     "next_page": "6",      # D-pad right
-    "toc": "2",            # D-pad up
+    "toc": "5",            # Center key
     "home": "8",           # D-pad down
     "settings": "0",       # Key 0
 }

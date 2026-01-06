@@ -67,6 +67,13 @@ class Renderer:
         book_dir = self.output_dir / book.slug
         book_dir.mkdir(parents=True, exist_ok=True)
 
+        # Save cover image if available
+        has_cover = False
+        if book.cover_data and book.cover_ext:
+            cover_filename = f"cover.{book.cover_ext}"
+            (book_dir / cover_filename).write_bytes(book.cover_data)
+            has_cover = True
+
         # Paginate the book
         paginator = Paginator()
         pages = paginator.paginate_book(book.chapters)
@@ -74,15 +81,24 @@ class Renderer:
 
         total_pages = len(pages)
 
+        # Render cover page (page 0) if cover exists
+        if has_cover:
+            self._render_cover_page(book, book_dir, cover_filename, total_pages)
+
         # Render TOC
-        self._render_toc(book, book_dir, chapter_ranges)
+        self._render_toc(book, book_dir, chapter_ranges, has_cover)
 
         # Render each page
         page_template = self.env.get_template('page.html')
 
         for i, page in enumerate(pages):
-            prev_page = i if i > 0 else None  # Previous page number (1-indexed)
-            next_page = i + 2 if i < total_pages - 1 else None  # Next page number
+            # Previous page: 0 (cover) for page 1 if cover exists, else normal
+            if page.number == 1:
+                prev_page = 0 if has_cover else None
+            else:
+                prev_page = page.number - 1
+
+            next_page = page.number + 1 if i < total_pages - 1 else None
 
             html = page_template.render(
                 book=book,
@@ -96,13 +112,30 @@ class Renderer:
             page_file = book_dir / f'{page.number}.html'
             page_file.write_text(html, encoding='utf-8')
 
-        print(f"  - {book.title}: {total_pages} pages")
+        print(f"  - {book.title}: {total_pages} pages" + (" + cover" if has_cover else ""))
+
+    def _render_cover_page(
+        self,
+        book: Book,
+        book_dir: Path,
+        cover_filename: str,
+        total_pages: int,
+    ) -> None:
+        """Render cover page (page 0)."""
+        template = self.env.get_template('cover.html')
+        html = template.render(
+            book=book,
+            cover_filename=cover_filename,
+            total_pages=total_pages,
+        )
+        (book_dir / '0.html').write_text(html, encoding='utf-8')
 
     def _render_toc(
         self,
         book: Book,
         book_dir: Path,
         chapter_ranges: dict[int, tuple[int, int]],
+        has_cover: bool = False,
     ) -> None:
         """Render table of contents page."""
         template = self.env.get_template('toc.html')
@@ -120,6 +153,7 @@ class Renderer:
         html = template.render(
             book=book,
             toc=toc_with_pages,
+            has_cover=has_cover,
         )
 
         (book_dir / 'toc.html').write_text(html, encoding='utf-8')

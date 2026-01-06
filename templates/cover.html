@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% set in_book = true %}
+
+{% block title %}{{ book.title }} - Cover{% endblock %}
+{% block header %}{{ book.title[:20] }}{% if book.title|length > 20 %}..{% endif %}{% endblock %}
+
+{% block head %}
+<script src="../app.js" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="cover-page">
+    <img src="{{ cover_filename }}" alt="Cover" class="cover-image">
+    <div class="cover-title">{{ book.title }}</div>
+    <div class="cover-author">{{ book.author }}</div>
+</div>
+{% endblock %}
+
+{% block nav %}
+<span class="nav-item nav-disabled">&lt;</span>
+<span class="nav-item nav-page">Cover</span>
+<a href="1.html" class="nav-item nav-link" accesskey="{{ nav_keys.next_page }}">&gt;</a>
+{% endblock %}
+
+{% block scripts %}
+<div class="hidden-nav">
+    <a href="toc.html" accesskey="{{ nav_keys.toc }}" class="hidden-link">TOC</a>
+    <a href="../index.html" accesskey="{{ nav_keys.home }}" class="hidden-link">Home</a>
+</div>
+{% endblock %}

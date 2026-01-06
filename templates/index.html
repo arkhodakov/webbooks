@@ -7,7 +7,7 @@
 <ul class="book-list">
     {% for book in books %}
     <li class="book-item">
-        <a href="{{ book.slug }}/1.html" class="book-link" {% if loop.first %}autofocus{% endif %}>
+        <a href="{{ book.slug }}/{{ '0' if book.has_cover else '1' }}.html" class="book-link" {% if loop.first %}autofocus{% endif %}>
             <span class="book-title">{{ book.title }}</span>
             <span class="book-author">{{ book.author }}</span>
         </a>

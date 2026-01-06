@@ -20,5 +20,5 @@
 {% block nav %}
 <a href="../index.html" class="nav-item nav-link" accesskey="{{ nav_keys.home }}">Home</a>
 <span class="nav-item"></span>
-<a href="1.html" class="nav-item nav-link">Read</a>
+<a href="{{ '0' if has_cover else '1' }}.html" class="nav-item nav-link">Read</a>
 {% endblock %}
