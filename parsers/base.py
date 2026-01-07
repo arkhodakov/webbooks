@@ -73,6 +73,13 @@ class Book:
         return self.cover_data is not None and len(self.cover_data) > 0
 
 
+@dataclass
+class Series:
+    """A series of books."""
+    name: str
+    books: list[Book] = field(default_factory=list)
+
+
 class BookParser(Protocol):
     """Protocol for book parsers."""
 

@@ -14,6 +14,31 @@
     function setupKeyboardNavigation() {
         document.addEventListener('keydown', function(e) {
             var key = e.key;
+            var tag = document.activeElement.tagName.toLowerCase();
+            var inInput = (tag === 'input' || tag === 'textarea' || tag === 'select');
+
+            // Escape blurs input
+            if (key === 'Escape' && inInput) {
+                document.activeElement.blur();
+                e.preventDefault();
+                return;
+            }
+
+            // * (star) always goes back, even in input
+            if (key === '*') {
+                var backLink = document.querySelector('a[accesskey="4"]');
+                if (backLink) {
+                    e.preventDefault();
+                    backLink.click();
+                }
+                return;
+            }
+
+            // Ignore other keys if in input
+            if (inInput) {
+                return;
+            }
+
             var link = null;
 
             // Arrow keys and numeric keys for navigation
@@ -29,6 +54,9 @@
             } else if (key === 'ArrowUp' || key === 'ArrowDown' || key === '8') {
                 // Home / book list
                 link = document.querySelector('a[accesskey="8"]');
+            } else if (key === '0') {
+                // Go to page
+                link = document.querySelector('a[accesskey="0"]');
             }
 
             if (link) {

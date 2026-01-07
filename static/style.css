@@ -99,11 +99,60 @@ html, body {
     color: #666;
 }
 
+/* Help block */
+.help-block {
+    background: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    padding: 6px 8px;
+    font-size: 11px;
+    margin: -8px -8px 8px -8px;
+}
+
+.help-row {
+    display: flex;
+    margin: 2px 0;
+}
+
+.help-item {
+    flex: 1;
+    color: #666;
+}
+
+.help-key {
+    display: inline-block;
+    width: 24px;
+    font-weight: bold;
+    color: #333;
+    font-family: monospace;
+    text-align: center;
+}
+
+/* Library list */
+.library-list {
+    height: calc(100% - 50px);
+    overflow-y: auto;
+}
+
+/* Series header */
+.series-header {
+    background: #e0e0e0;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+    margin-top: 4px;
+}
+
+.series-header:first-child {
+    margin-top: 0;
+}
+
 /* Book list on index page */
 .book-list {
     list-style: none;
-    height: 100%;
-    overflow-y: auto;
+    margin: 0;
+    padding: 0;
 }
 
 .book-item {
@@ -139,6 +188,18 @@ html, body {
 
 .book-link:focus .book-author,
 .book-link:hover .book-author {
+    color: #cce5ff;
+}
+
+.book-page {
+    display: block;
+    font-size: 10px;
+    color: #007bff;
+    margin-top: 2px;
+}
+
+.book-link:focus .book-page,
+.book-link:hover .book-page {
     color: #cce5ff;
 }
 
@@ -179,6 +240,71 @@ html, body {
     font-size: 11px;
     color: #666;
     margin-top: 4px;
+}
+
+/* Go to page */
+.goto-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    padding: 16px;
+}
+
+.goto-info {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.goto-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.goto-label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.goto-input {
+    width: 80px;
+    padding: 8px;
+    font-size: 16px;
+    text-align: center;
+    border: 2px solid #007bff;
+    border-radius: 4px;
+}
+
+.goto-input:focus {
+    outline: none;
+    border-color: #0056b3;
+}
+
+.goto-button {
+    padding: 8px 24px;
+    font-size: 14px;
+    font-weight: bold;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.goto-button:focus,
+.goto-button:hover {
+    background: #0056b3;
+}
+
+.goto-hint {
+    font-size: 11px;
+    color: #999;
+    margin-top: 12px;
 }
 
 /* Chapter heading */

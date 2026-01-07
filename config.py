@@ -56,5 +56,5 @@ NAV_KEYS = {
     "next_page": "6",      # D-pad right
     "toc": "5",            # Center key
     "home": "8",           # D-pad down
-    "settings": "0",       # Key 0
+    "goto": "0",           # Key 0 - go to page
 }

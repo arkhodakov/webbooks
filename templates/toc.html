@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% set in_book = true %}
 
-{% block title %}{{ book.title }} - TOC{% endblock %}
-{% block header %}Contents{% endblock %}
+{% block title %}{{ book.title }} - Оглавление{% endblock %}
+{% block header %}Оглавление{% endblock %}
 
 {% block content %}
 <ul class="toc-list">
@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block nav %}
-<a href="../index.html" class="nav-item nav-link" accesskey="{{ nav_keys.home }}">Home</a>
+<a href="../index.html" class="nav-item nav-link" accesskey="{{ nav_keys.home }}">Библиотека</a>
 <span class="nav-item"></span>
-<a href="{{ '0' if has_cover else '1' }}.html" class="nav-item nav-link">Read</a>
+<a href="{{ '0' if has_cover else '1' }}.html" class="nav-item nav-link">Читать</a>
 {% endblock %}

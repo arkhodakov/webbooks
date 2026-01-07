@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% set in_book = true %}
 
-{% block title %}{{ book.title }} - Cover{% endblock %}
+{% block title %}{{ book.title }} - Обложка{% endblock %}
 {% block header %}{{ book.title[:20] }}{% if book.title|length > 20 %}..{% endif %}{% endblock %}
 
 {% block head %}
-<script src="../app.js" defer></script>
+<script src="../app.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -18,7 +18,7 @@
 
 {% block nav %}
 <span class="nav-item nav-disabled">&lt;</span>
-<span class="nav-item nav-page">Cover</span>
+<span class="nav-item nav-page">Обложка</span>
 <a href="1.html" class="nav-item nav-link" accesskey="{{ nav_keys.next_page }}">&gt;</a>
 {% endblock %}
 

@@ -1,28 +1,100 @@
 {% extends "base.html" %}
 
-{% block title %}WebBooks - Library{% endblock %}
-{% block header %}Library{% endblock %}
+{% block title %}Библиотека{% endblock %}
+{% block header %}Библиотека{% endblock %}
 
 {% block content %}
-<ul class="book-list">
-    {% for book in books %}
-    <li class="book-item">
-        <a href="{{ book.slug }}/{{ '0' if book.has_cover else '1' }}.html" class="book-link" {% if loop.first %}autofocus{% endif %}>
-            <span class="book-title">{{ book.title }}</span>
-            <span class="book-author">{{ book.author }}</span>
-        </a>
-    </li>
+{# Help block with key bindings #}
+<div class="help-block">
+    <div class="help-row">
+        <span class="help-item"><span class="help-key">[4]</span> Назад</span>
+        <span class="help-item"><span class="help-key">[6]</span> Вперёд</span>
+    </div>
+    <div class="help-row">
+        <span class="help-item"><span class="help-key">[5]</span> Содержание</span>
+        <span class="help-item"><span class="help-key">[8]</span> Библиотека</span>
+    </div>
+    <div class="help-row">
+        <span class="help-item"><span class="help-key">[0]</span> К странице</span>
+        <span class="help-item"><span class="help-key">[*]</span> Назад</span>
+    </div>
+</div>
+
+{# Series and books list #}
+<div class="library-list">
+    {% for series in series_list %}
+    {% if series.name %}
+    <div class="series-header">{{ series.name }}</div>
+    {% endif %}
+    <ul class="book-list">
+        {% for book in series.books %}
+        <li class="book-item">
+            <a href="{{ book.slug }}/{{ '0' if book.has_cover else '1' }}.html" class="book-link">
+                <span class="book-title">{{ book.title }}</span>
+                <span class="book-author">{{ book.author }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
     {% else %}
-    <li class="empty-message">
-        No books found.<br>
-        Add EPUB or FB2 files to books/ folder.
-    </li>
+    <div class="empty-message">
+        Книги не найдены.<br>
+        Добавьте EPUB или FB2 файлы в папку books/
+    </div>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}
 
 {% block nav %}
-<span class="nav-item nav-hint">{{ books|length }} books</span>
+<span class="nav-item nav-hint">{{ total_books }} книг</span>
 <span class="nav-item"></span>
 <span class="nav-item"></span>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function() {
+    var STORAGE_KEY = 'webbooks_positions';
+
+    function loadPositions() {
+        try {
+            var data = localStorage.getItem(STORAGE_KEY);
+            if (data) return JSON.parse(data);
+        } catch (e) {}
+        return {};
+    }
+
+    function updateBookLinks() {
+        var positions = loadPositions();
+        var bookLinks = document.querySelectorAll('.book-link');
+
+        bookLinks.forEach(function(link) {
+            // Extract book slug from href (e.g., "book-slug/0.html" -> "book-slug")
+            var href = link.getAttribute('href');
+            var match = href.match(/^([^/]+)\//);
+            if (!match) return;
+
+            var slug = match[1];
+            var pos = positions[slug];
+
+            if (pos && pos.page > 1) {
+                // Update link to continue from saved position
+                link.setAttribute('href', slug + '/' + pos.page + '.html');
+
+                // Add page indicator
+                var pageSpan = document.createElement('span');
+                pageSpan.className = 'book-page';
+                pageSpan.textContent = 'с.' + pos.page;
+                link.appendChild(pageSpan);
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateBookLinks);
+    } else {
+        updateBookLinks();
+    }
+})();
+</script>
 {% endblock %}

@@ -5,7 +5,7 @@
 {% block header %}{{ page.chapter_title[:15] }}{% if page.chapter_title|length > 15 %}..{% endif %} <span class="header-page">{{ page.number }}/{{ total_pages }}</span>{% endblock %}
 
 {% block head %}
-<script src="../app.js" defer></script>
+<script src="../app.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -43,6 +43,7 @@
 <div class="hidden-nav">
     <a href="toc.html" accesskey="{{ nav_keys.toc }}" class="hidden-link">TOC</a>
     <a href="../index.html" accesskey="{{ nav_keys.home }}" class="hidden-link">Home</a>
+    <a href="goto.html" accesskey="{{ nav_keys.goto }}" class="hidden-link">Go to</a>
 </div>
 
 <script>
