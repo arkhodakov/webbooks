@@ -88,6 +88,11 @@
                 link.appendChild(pageSpan);
             }
         });
+
+        // Focus first book link for D-pad navigation
+        if (bookLinks.length > 0) {
+            bookLinks[0].focus();
+        }
     }
 
     if (document.readyState === 'loading') {
