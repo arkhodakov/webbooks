@@ -5,7 +5,7 @@
 {% block header %}К странице{% endblock %}
 
 {% block head %}
-<script src="../app.js" defer></script>
+<script src="../app.js"></script>
 <script>
 function goToPage() {
     var input = document.getElementById('page-input');
@@ -36,7 +36,7 @@ function goToPage() {
         <input type="number" id="page-input" name="page"
                min="1" max="{{ total_pages }}"
                class="goto-input" autofocus>
-        <button type="submit" class="goto-button">Перейти</button>
+        <button type="submit" class="goto-button" accesskey="{{ nav_keys.toc }}">Перейти</button>
     </form>
 
     <div class="goto-hint">
@@ -48,7 +48,7 @@ function goToPage() {
 {% block nav %}
 <a href="{{ '0' if has_cover else '1' }}.html" class="nav-item nav-link" accesskey="{{ nav_keys.prev_page }}">Назад</a>
 <span class="nav-item"></span>
-<a href="toc.html" class="nav-item nav-link" accesskey="{{ nav_keys.toc }}">Оглавление</a>
+<a href="toc.html" class="nav-item nav-link">Оглавление</a>
 {% endblock %}
 
 {% block scripts %}
