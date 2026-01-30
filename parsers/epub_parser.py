@@ -127,10 +127,29 @@ class EpubParser:
                 paragraphs.append(text)
                 prev_text = text
 
-        if paragraphs:
+        # Check if we have actual content (not just headers)
+        non_header_content = [p for p in paragraphs
+                             if len(p) > 100 or not any(p.lower().startswith(x)
+                             for x in ['глава', 'chapter', 'часть', 'part'])]
+
+        if non_header_content:
             return '\n\n'.join(paragraphs)
 
-        # Fallback to all text with spaces
+        # Fallback: Handle HTML with <br/> tags instead of <p>
+        # Replace <br> tags with newlines, then get text
+        body = soup.find('body')
+        if body:
+            # Convert <br> to newlines
+            for br in body.find_all('br'):
+                br.replace_with('\n')
+
+            # Get text and split by newlines
+            text = body.get_text()
+            lines = [line.strip() for line in text.split('\n') if line.strip()]
+            if lines:
+                return '\n\n'.join(lines)
+
+        # Last fallback
         return soup.get_text(separator=' ')
 
     def _extract_toc(self, book: epub.EpubBook, chapters: list[Chapter]) -> list[TocEntry]:
